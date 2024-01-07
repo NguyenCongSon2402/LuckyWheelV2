@@ -1,5 +1,6 @@
 package com.coding.luckywheelv2
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.animation.Animation
@@ -19,12 +20,14 @@ class MainActivity2 : AppCompatActivity() {
     private lateinit var random: Random
 
     private lateinit var buttonStartWheel: Button
+    private lateinit var next: Button
     private lateinit var imageWheel: ImageView
     private lateinit var result: TextView
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main2)
         buttonStartWheel = findViewById(R.id.button_start_spin)
+        next = findViewById(R.id.next)
         imageWheel = findViewById(R.id.lucky_wheel)
         result = findViewById(R.id.result)
         random = Random()
@@ -34,6 +37,9 @@ class MainActivity2 : AppCompatActivity() {
                 spin()
                 spinning = true
             }
+        }
+        next.setOnClickListener {
+            startActivity(Intent(this, MainActivity::class.java))
         }
 
     }
@@ -64,7 +70,7 @@ class MainActivity2 : AppCompatActivity() {
         imageWheel.startAnimation(rotateAnimation)
     }
 
-    private fun saveEarnings(earnedCoins: String){
+    private fun saveEarnings(earnedCoins: String) {
         spinning = false
         result.text = earnedCoins
     }

@@ -9,6 +9,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import com.coding.luckywheelv2.R
 import kotlin.random.Random
 
 class MainActivity : AppCompatActivity() {
@@ -23,8 +24,6 @@ class MainActivity : AppCompatActivity() {
     private val random = Random
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        window.addFlags(1024);
-        supportRequestWindowFeature(1);
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
@@ -35,7 +34,11 @@ class MainActivity : AppCompatActivity() {
         buttonStartWheel.setOnClickListener {
             if (buttonRotation) {
                 oldDegrees = degrees % 360
-                degrees = (random.nextInt(3600) + 720).toFloat()
+                // Thay đổi giá trị này để có số phần chia mong muốn (ở đây là 8)
+                val sectors = 8
+                degrees =  (random.nextInt(3600) + 720).toFloat()
+                //degrees = (random.nextInt(8) * 45).toFloat()
+
                 val rotateAnimation = RotateAnimation(
                     oldDegrees, degrees,
                     RotateAnimation.RELATIVE_TO_SELF, 0.5f, RotateAnimation.RELATIVE_TO_SELF, 0.5f
@@ -63,27 +66,17 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun currentNumber(degrees: Float) {
-//        val itemIndex = ((degrees + number / 2) / number).toInt()
-//
-//        when (itemIndex) {
-//            0 -> showToast("JackPot")
-//            1 -> showToast("100$")
-//            2 -> showToast("200$")
-//            3 -> showToast("300$")
-//            4 -> showToast("LOSE")
-//            5 -> showToast("400$")
-//            6 -> showToast("100$")
-//            7 -> showToast("200$")
-//        }
-        when {
-            degrees >= (number * 0) && degrees < (number * 1) -> showToast("JackPot")
-            degrees >= (number * 1) && degrees < (number * 2) -> showToast("100$")
-            degrees >= (number * 2) && degrees < (number * 3) -> showToast("200$")
-            degrees >= (number * 3) && degrees < (number * 4) -> showToast("300$")
-            degrees >= (number * 4) && degrees < (number * 5) -> showToast("LOSE")
-            degrees >= (number * 5) && degrees < (number * 6) -> showToast("400$")
-            degrees >= (number * 6) && degrees < (number * 7) -> showToast("100$")
-            degrees >= (number * 7) && degrees < (number * 8) -> showToast("200$")
+        val itemIndex = ((degrees + number / 2) / number).toInt()
+
+        when (itemIndex) {
+            0 -> showToast("JackPot")
+            1 -> showToast("100$")
+            2 -> showToast("200$")
+            3 -> showToast("300$")
+            4 -> showToast("LOSE")
+            5 -> showToast("400$")
+            6 -> showToast("100$")
+            7 -> showToast("200$")
         }
     }
 
